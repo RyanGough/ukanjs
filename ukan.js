@@ -36,7 +36,7 @@ function unify(s,x,y){
         if (newS === null){
             return null;
         }
-        return unify(xTail,yTail,newS);
+        return unify(newS,xTail,yTail);
     }
     x = ukan_lookup(s,x);
     y = ukan_lookup(s,y);
