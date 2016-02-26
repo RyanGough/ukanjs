@@ -23,7 +23,7 @@ function ukan_extend(s,v,val){
     return newS;
 }
 
-function unify(s,x,y){
+function ukan_unifyS(s,x,y){
     if (x instanceof Array 
         && y instanceof Array
         && x.length === y.length) {
@@ -32,11 +32,11 @@ function unify(s,x,y){
         }
         var [xHead,...xTail] = x;
         var [yHead,...yTail] = y;
-        var newS = unify(s,xHead,yHead);
+        var newS = ukan_unifyS(s,xHead,yHead);
         if (newS === null){
             return null;
         }
-        return unify(newS,xTail,yTail);
+        return ukan_unifyS(newS,xTail,yTail);
     }
     x = ukan_lookup(s,x);
     y = ukan_lookup(s,y);
@@ -54,7 +54,7 @@ function unify(s,x,y){
 
 function ukan_unify(x,y){
     return function(s) {
-        var newS = unify(s,x,y);
+        var newS = ukan_unifyS(s,x,y);
         if (newS === null){
             return ukan_fail();
         } else {
@@ -83,5 +83,6 @@ module.exports = {
     // 2
     success: ukan_success,
     fail: ukan_fail,
+    unifyS: ukan_unifyS,
     unify: ukan_unify
 }

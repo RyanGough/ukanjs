@@ -12,8 +12,8 @@ var ukan = require('./ukan.js');
  * A goal that returns at least one substitution 'succeeds'
  *
  * We start by defining basic goals to represent failure and success.
- * We then build our first real goal, and the heart of the logic system
- * 'unify'.
+ * We then build our first real goal and the heart of the logic system
+ * 'unify'. For this goal we first build a helper function 'unifyS'
  *
  * We actually implement any complex goal as a function that returns a goal,
  * in order to allow us to combine goals more easliy later on.
@@ -43,70 +43,60 @@ console.log("\n2) Simple Goals and Unification\n");
     console.log("2.2 Passed :)");
 })();
 
-// 2.3) unify returns a goal which succeeds in unifying two idential
-// values but this does not increase our knowledge.
-(function unify_goal_succeeds_for_identical_values_but_no_new_knowledge(){
+// 2.3) unifyS can unify 2 identical values but this does not
+// increase our knowledge.
+(function unifyS_succeeds_for_identical_values_but_no_new_knowledge(){
     var s = ukan.emptyS();
     // remember, a goal is a function that maps a substitution to 0
     // or more substitutions
-    var unifyGoal = ukan.unify(1,1);
-    var res = unifyGoal(s);
+    var res = ukan.unifyS(s,1,1);
 
-    assert.strictEqual(res.length, 1);
-    assert.strictEqual(res[0], s);
+    assert.strictEqual(res, s);
 
     console.log("2.3 Passed :)");
 })();
 
-// 2.4) unify returns a goal which fails in unifying two different values.
-(function unify_goal_fails_for_different_values(){
-    var unifyGoal = ukan.unify("oranges","apples");
-    var res = unifyGoal(ukan.emptyS());
+// 2.4) unifyS fails in unifying two different values.
+(function unifyS_fails_for_different_values(){
+    var res = ukan.unifyS("oranges","apples");
 
-    assert.strictEqual(res.length, 0);
+    assert.strictEqual(res, null);
 
     console.log("2.4 Passed :)");
 })();
 
-// 2.5) unify returns a goal which succeeds in unifying fresh variable with
-// a value, and returns a substitution with this knowledge.
+// 2.5) unifyS succeeds in unifying a fresh variable with/ a value,
+// and returns a substitution with this knowledge.
 (function unify_goal_succeeds_for_fresh_var_and_value(){
     var x = ukan.fresh();
-    var unifyGoal = ukan.unify("apples",x);
-    var res = unifyGoal(ukan.emptyS());
-
-    assert.strictEqual(res.length, 1);
-    assert.strictEqual(ukan.lookup(res[0], x), "apples");
+    var res = ukan.unifyS(ukan.emptyS(),"apples",x);
+    assert.strictEqual(ukan.lookup(res, x), "apples");
 
     console.log("2.5 Passed :)");
 })();
 
-// 2.6) we can unify empty lists
-(function unify_goal_succeeds_for_empty_lists(){
+// 2.6) we can unifyS empty lists
+(function unifyS_succeeds_for_empty_lists(){
     var s = ukan.emptyS();
     var list1 = [];
     var list2 = [];
-    var unifyGoal = ukan.unify(list1, list2);
-    var res = unifyGoal(s);
+    var res = ukan.unifyS(s, list1, list2);
 
-    assert.strictEqual(res.length, 1);
-    assert.strictEqual(res[0], s);
+    assert.strictEqual(res, s);
 
     console.log("2.5 Passed :)");
 })();
 
-// 2.6) we can unify empty lists where each element unifies
-(function unify_goal_succeeds_for_lists_where_each_element_unifies(){
+// 2.6) we can unify lists where each element unifies
+(function unifyS_succeeds_for_lists_where_each_element_unifies(){
     var x = ukan.fresh();
     var y = ukan.fresh();
     var list1 = [true,x];
     var list2 = [y,"apples"];
-    var unifyGoal = ukan.unify(list1, list2);
-    var res = unifyGoal(ukan.emptyS());
+    var res = ukan.unifyS(ukan.emptyS(), list1, list2);
 
-    assert.strictEqual(res.length, 1);
-    assert.strictEqual(ukan.lookup(res[0], x), "apples");
-    assert.strictEqual(ukan.lookup(res[0], y), true);
+    assert.strictEqual(ukan.lookup(res, x), "apples");
+    assert.strictEqual(ukan.lookup(res, y), true);
 
     console.log("2.5 Passed :)");
 })();

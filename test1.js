@@ -40,7 +40,7 @@ console.log("\n1) Logic-style Variables & Substitutions\n");
     console.log("1.2 Passed :)");
 })();
 
-// 1.3) when we lookup a value in a substitution the value is simple returned. 
+// 1.3) when we lookup a value in a substitution the value is simply returned. 
 (function looking_up_value_returns_value(){
     var res = ukan.lookup(ukan.emptyS(), 4454); 
     
