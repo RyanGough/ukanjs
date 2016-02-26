@@ -23,6 +23,14 @@ function ukan_extend(s,v,val){
     return newS;
 }
 
+function ukan_success(x){
+    return [x];
+}
+
+function ukan_fail(){
+    return [];
+}
+
 function ukan_unifyS(s,x,y){
     if (x instanceof Array 
         && y instanceof Array
@@ -63,15 +71,10 @@ function ukan_unify(x,y){
     }
 }
 
-function ukan_success(x){
-    return [x];
-}
-
-function ukan_fail(){
-    return [];
-}
-
 function ukan_disj(f1, f2){
+    return function(s){
+        return f1(s).concat(f2(s));
+    }
 };
 
 module.exports = {
@@ -84,5 +87,7 @@ module.exports = {
     success: ukan_success,
     fail: ukan_fail,
     unifyS: ukan_unifyS,
-    unify: ukan_unify
+    unify: ukan_unify,
+    // 3
+    disj: ukan_disj,
 }
