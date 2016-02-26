@@ -84,10 +84,10 @@ console.log("\n2) Simple Goals and Unification\n");
 
     assert.strictEqual(res, s);
 
-    console.log("2.5 Passed :)");
+    console.log("2.6 Passed :)");
 })();
 
-// 2.6) we can unify lists where each element unifies
+// 2.7) we can unify lists where each element unifies
 (function unifyS_succeeds_for_lists_where_each_element_unifies(){
     var x = ukan.fresh();
     var y = ukan.fresh();
@@ -98,7 +98,37 @@ console.log("\n2) Simple Goals and Unification\n");
     assert.strictEqual(ukan.lookup(res, x), "apples");
     assert.strictEqual(ukan.lookup(res, y), true);
 
-    console.log("2.5 Passed :)");
+    console.log("2.7 Passed :)");
+})();
+
+// 2.8) now we intoduce the real unify, which returns goal that unifies
+(function unifyS_succeeds_for_lists_where_each_element_unifies(){
+    var x = ukan.fresh();
+    var y = ukan.fresh();
+    var list1 = ["carrots",x,y];
+    var list2 = ["carrots",1,2];
+    var goal = ukan.unify(list1,list2);
+    var res = goal(ukan.emptyS());
+
+    assert.equal(res.length, 1);
+    assert.strictEqual(ukan.lookup(res[0], x), 1);
+    assert.strictEqual(ukan.lookup(res[0], y), 2);
+
+    console.log("2.8 Passed :)");
+})();
+
+// 2.9) finally, just make sure that the unify goal fails if we do cannt unify.
+(function unifyS_succeeds_for_lists_where_each_element_unifies(){
+    var x = ukan.fresh();
+    var y = ukan.fresh();
+    var list1 = ["carrots",x,y];
+    var list2 = ["apples",1,2];
+    var goal = ukan.unify(list1,list2);
+    var res = goal(ukan.emptyS());
+
+    assert.equal(res.length, 0);
+
+    console.log("2.9 Passed :)");
 })();
 
 console.log( "\n2) Complete!");
