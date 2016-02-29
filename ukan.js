@@ -77,6 +77,12 @@ function ukan_disj(f1, f2){
     }
 };
 
+function ukan_conj(f1, f2){
+    return function(s){
+        return f1(s).reduce((acc,x) => acc.concat(f2(x)), []);
+    }
+};
+
 module.exports = {
     // 1
     fresh: ukan_fresh,
@@ -90,4 +96,5 @@ module.exports = {
     unify: ukan_unify,
     // 3
     disj: ukan_disj,
+    conj: ukan_conj
 }
