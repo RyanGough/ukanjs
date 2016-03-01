@@ -83,6 +83,24 @@ function ukan_conj(f1, f2){
     }
 };
 
+function ukan_member(v, l){
+    if (l.length === 0){
+        return ukan_fail
+    }
+    var [head,...tail] = l;
+    return ukan_disj(
+        ukan_unify(v,head),
+        ukan_member(v,tail));
+}
+
+function ukan_common(l1, l2){
+    var x = ukan_fresh();
+    var res = ukan_conj(
+        ukan_member(x,l1),
+        ukan_member(x,l2))(ukan_emptyS());
+    return res.map(s => ukan_lookup(s,x));
+}
+
 module.exports = {
     // 1
     fresh: ukan_fresh,
@@ -96,5 +114,8 @@ module.exports = {
     unify: ukan_unify,
     // 3
     disj: ukan_disj,
-    conj: ukan_conj
+    conj: ukan_conj,
+    // 4
+    member: ukan_member,
+    common: ukan_common,
 }
