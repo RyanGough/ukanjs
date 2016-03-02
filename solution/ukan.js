@@ -11,6 +11,9 @@ function ukan_emptyS(){
 }
 
 function ukan_lookup(s, v){
+    if (!isFresh(v)){
+        return v;
+    }
     var res = s[v];
     if (res === undefined){
         return v;
@@ -36,6 +39,8 @@ function ukan_fail(){
 }
 
 function ukan_unifyS(s,x,y){
+    x = ukan_lookup(s,x);
+    y = ukan_lookup(s,y);
     if (x instanceof Array 
         && y instanceof Array
         && x.length === y.length) {
@@ -50,8 +55,6 @@ function ukan_unifyS(s,x,y){
         }
         return ukan_unifyS(newS,xTail,yTail);
     }
-    x = ukan_lookup(s,x);
-    y = ukan_lookup(s,y);
     if (isFresh(x)){
         return ukan_extend(s, x, y);
     }
