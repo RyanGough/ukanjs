@@ -1,6 +1,6 @@
 # ukan.js
-Playing around with miniKanren in JavaScript, inspired by [The Reasoned Schemer](https://mitpress.mit.edu/books/reasoned-schemer).  
-The idea of this repo is to have a series of tests to lead towards an approximation of Oleg Kiselyov's [sokuza-kanren](https://github.com/miniKanren/sokuza-kanren) in JavaScript. When I got stuck I consulted Bodil Stokke's [lolkanren](https://gitlab.com/bodil/lolkanren), though of course the mistakes are all my own.  
+Playing around with miniKanren in JavaScript, inspired by [The Reasoned Schemer](https://mitpress.mit.edu/books/reasoned-schemer).
+The idea of this repo is to have a series of tests to lead towards an approximation of Oleg Kiselyov's [sokuza-kanren](https://github.com/miniKanren/sokuza-kanren) in JavaScript. When I got stuck I consulted Bodil Stokke's [lolkanren](https://gitlab.com/bodil/lolkanren), though of course the mistakes are all my own.
 The name is a contraction and distortion of μKanren, and I feel it has a pleasing positivity about it :)
 
 ## approach:
