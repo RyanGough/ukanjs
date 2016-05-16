@@ -58,7 +58,7 @@ console.log("\n2) Simple Goals and Unification\n");
 
 // 2.4) unifyS fails in unifying two different values.
 (function unifyS_fails_for_different_values(){
-    var res = ukan.unifyS("oranges","apples");
+    var res = ukan.unifyS(ukan.emptyS(), "oranges","apples");
 
     assert.strictEqual(res, null);
 
